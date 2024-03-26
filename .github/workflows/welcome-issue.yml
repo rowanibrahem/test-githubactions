@@ -8,15 +8,26 @@ permissions:
  contents: read
 
 jobs:
- asses-issues:
+ comment:
   runs-on: ubuntu-latest
   steps:
     - uses: actions/github-script@v7
+      name: Comment
       with:
-          script: |
+           script: |
             github.rest.issues.createComment({
-              issue_number: context. issue.number,
+              issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
-              body: '👋 Thanks for reporting!'
+              body: '👋 Thanks for reporting We will review it and get back soon!'
+            })
+    - uses: actions/github-script@v7
+      name: Add Label
+      with:
+           script: |
+            github.rest.issues.addLabel({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              labels: ['need review']
             })
