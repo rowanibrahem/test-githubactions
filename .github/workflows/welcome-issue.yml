@@ -2,6 +2,7 @@ name: Welcome to my GitHub repo
 on:
    issues:
     types: [opened]
+    
 permissions:
  issues: write
  contents: read
