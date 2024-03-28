@@ -1,0 +1,27 @@
+name: Validate markdown files
+on:
+  pull_request:
+    branches:
+      - main
+    paths:
+      - '**.md'
+
+permissions:
+  pull-requests: write
+  contents: read
+
+jobs:
+  comment:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+      - name: Check broken paths
+        uses: john0isaac/action-check-markdown@v1.0.6
+        with: 
+          github-token: ${{secrets.GITHUB_TOKEN}}
+          command: check_broken_paths
+          directory: ./
+          guide-url: 'https://github.com/john0isaac/action-check-markdown/blob/main/CONTRIBUTING.md'
